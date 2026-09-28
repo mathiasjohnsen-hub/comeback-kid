@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Comeback Kid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<meta name="apple-mobile-web-app-title" content="Comeback Kid">
+<meta name="theme-color" content="#f6fafd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f171d" media="(prefers-color-scheme: dark)">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --bg: #f6fafd;
+    --card: #ffffff;
+    --text: #1a1d21;
+    --muted: #64748b;
+    --border: #dcebf3;
+    --accent: #a5e0f8;
+    --accent-ink: #1d84b5;
+    --accent-soft: #e9f7fd;
+    --warn: #b45309;
+    --warn-soft: #fef3c7;
+    --good: #15803d;
+    --good-soft: #dcfce7;
+    --bad: #b91c1c;
+    --chart-grid: #dcebf3;
+    --thr-jogg: #d97706;
+    --thr-padel: #1d84b5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f171d;
+      --card: #182029;
+      --text: #e6ecf1;
+      --muted: #94a3b8;
+      --border: #263644;
+      --accent: #b6e9fc;
+      --accent-ink: #b6e9fc;
+      --accent-soft: #12384a;
+      --warn: #fbbf24;
+      --warn-soft: #453409;
+      --good: #4ade80;
+      --good-soft: #14532d;
+      --bad: #f87171;
+      --chart-grid: #263644;
+      --thr-jogg: #fbbf24;
+      --thr-padel: #b6e9fc;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f171d;
+    --card: #182029;
+    --text: #e6ecf1;
+    --muted: #94a3b8;
+    --border: #263644;
+    --accent: #b6e9fc;
+    --accent-ink: #b6e9fc;
+    --accent-soft: #12384a;
+    --warn: #fbbf24;
+    --warn-soft: #453409;
+    --good: #4ade80;
+    --good-soft: #14532d;
+    --bad: #f87171;
+    --chart-grid: #263644;
+    --thr-jogg: #fbbf24;
+    --thr-padel: #b6e9fc;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 16px 16px calc(84px + env(safe-area-inset-bottom, 0px));
+  }
+  h1, h2, h3, .stat .v, .lsi-big, .hero-big {
+    font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  h1 { font-size: 1.35rem; margin: 4px 0 2px; font-weight: 700; }
+  h2 { font-size: 1.02rem; margin: 0 0 10px; font-weight: 600; }
+  h3 { font-size: 0.92rem; margin: 0 0 6px; font-weight: 600; }
+  .sub { color: var(--muted); font-size: 0.85rem; margin: 0 0 14px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  label { font-size: 0.85rem; color: var(--muted); display: block; margin-bottom: 3px; }
+  input[type="number"], input[type="date"], input[type="text"], select, textarea {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 1rem;
+    font-family: inherit;
+  }
+  textarea { resize: vertical; min-height: 54px; }
+  input[type="range"] { width: 100%; accent-color: var(--accent); }
+  button {
+    font-family: inherit;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 10px;
+    padding: 11px 16px;
+    cursor: pointer;
+    background: var(--accent);
+    color: #0c3d55;
+    font-weight: 600;
+  }
+  :root[data-theme="dark"] button, body button.dark-aware { color: #082f49; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) button { color: #082f49; }
+    :root:not([data-theme="light"]) button.secondary, :root:not([data-theme="light"]) button.ghost, :root:not([data-theme="light"]) nav button { color: var(--muted); }
+    :root:not([data-theme="light"]) button.secondary { color: var(--accent-ink); }
+    :root:not([data-theme="light"]) nav button.active { color: var(--accent-ink); }
+  }
+  button.secondary {
+    background: transparent;
+    color: var(--accent-ink);
+    border: 1px solid var(--accent);
+  }
+  button.small { padding: 6px 10px; font-size: 0.8rem; border-radius: 8px; }
+  button.ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+  .pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+  .pill.good { background: var(--good-soft); color: var(--good); }
+  .pill.warn { background: var(--warn-soft); color: var(--warn); }
+  .pill.neutral { background: var(--accent-soft); color: var(--accent-ink); }
+  .stat { text-align: center; flex: 1; min-width: 80px; }
+  .stat .v { font-size: 1.35rem; font-weight: 700; }
+  .stat .l { font-size: 0.72rem; color: var(--muted); }
+  .hero {
+    border-color: transparent;
+    background: linear-gradient(180deg, var(--accent-soft) 0%, var(--card) 78%);
+    padding-top: 22px;
+  }
+  .ring-wrap { position: relative; width: 196px; margin: 0 auto; }
+  .ring-center {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; pointer-events: none;
+  }
+  .hero-big { font-size: 1.9rem; font-weight: 700; line-height: 1.05; }
+  .ring-center .l { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+  .hero-next { text-align: center; margin: 12px 0 4px; font-size: 0.85rem; color: var(--muted); }
+  .hero-next strong { color: var(--text); }
+  .hero .row { margin-top: 14px; border-top: 1px solid var(--border); padding-top: 12px; }
+  nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-around;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
+    z-index: 10;
+  }
+  nav button {
+    background: none;
+    color: var(--muted);
+    font-size: 0.7rem;
+    padding: 6px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    font-weight: 500;
+    flex: 1;
+    max-width: 110px;
+  }
+  nav button .ico { font-size: 1.25rem; }
+  nav button.active { color: var(--accent-ink); font-weight: 700; }
+  .hidden { display: none !important; }
+  .list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+  .list-item:last-child { border-bottom: none; }
+  .list-item .d { color: var(--muted); font-size: 0.8rem; white-space: nowrap; }
+  .ms {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+  }
+  .ms .rail {
+    display: flex; flex-direction: column; align-items: center;
+    width: 26px; flex-shrink: 0;
+  }
+  .ms .dot {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+    background: var(--bg);
+    cursor: pointer;
+    user-select: none;
+  }
+  .ms .line { flex: 1; width: 3px; min-height: 12px; background: var(--border); border-radius: 2px; margin: 3px 0; }
+  .ms .body { padding-bottom: 16px; }
+  .ms:last-child .body { padding-bottom: 2px; }
+  .ms.done .dot { background: var(--accent); border-color: var(--accent); color: #0c3d55; }
+  .ms.done .line { background: var(--accent); }
+  .ms.next .dot { border-color: var(--accent-ink); color: var(--accent-ink); box-shadow: 0 0 0 4px var(--accent-soft); }
+  .ms .t { font-weight: 600; font-size: 0.92rem; }
+  .ms .c { font-size: 0.8rem; color: var(--muted); }
+  .ms .when { font-size: 0.78rem; color: var(--accent-ink); font-weight: 600; }
+  svg.chart { width: 100%; height: auto; display: block; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+  .legend span::before { content: "●"; margin-right: 4px; }
+  .toggle-group { display: flex; gap: 8px; }
+  .toggle-group button {
+    flex: 1;
+    background: var(--bg);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .toggle-group button.on { background: var(--accent-soft); color: var(--accent-ink); border-color: var(--accent); }
+  .rangeval { font-weight: 700; min-width: 26px; text-align: center; }
+  .note { font-size: 0.8rem; color: var(--muted); }
+  .lsi-big { font-size: 2.2rem; font-weight: 800; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+  @media print {
+    nav, .no-print { display: none !important; }
+    body { background: #fff; color: #000; }
+    .card { border: 1px solid #ccc; break-inside: avoid; }
+    main { padding-bottom: 0; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header style="margin-bottom:14px;">
+    <h1>Comeback Kid 🩵</h1>
+    <p class="sub" id="headerSub" style="border-left:3px solid var(--accent);padding-left:8px;"></p>
+  </header>
+
+  <!-- ============ OVERSIKT ============ -->
+  <section id="view-oversikt">
+    <div class="card hero">
+      <div class="ring-wrap">
+        <div id="progressRing"></div>
+        <div class="ring-center">
+          <div class="hero-big" id="statOp">–</div>
+          <div class="l" id="statOpLabel">siden operasjon</div>
+        </div>
+      </div>
+      <div class="hero-next" id="heroNext"></div>
+      <div id="heroQuote" style="text-align:center;margin:10px auto 2px;max-width:420px;font-size:0.9rem;font-style:italic;color:var(--muted);"></div>
+      <div class="row">
+        <div class="stat"><div class="v" id="statDays">–</div><div class="l">dager siden skaden</div></div>
+        <div class="stat"><div class="v" id="statLsi">–</div><div class="l">LSI styrke</div></div>
+        <div class="stat"><div class="v" id="statStreak">–</div><div class="l">dager på rad</div></div>
+      </div>
+    </div>
+
+    <div class="card" id="nextMilestoneCard">
+      <h2>Neste milepæl</h2>
+      <div id="nextMilestone"></div>
+    </div>
+
+    <div class="card" id="dashCarrotCard" style="background: var(--accent-soft); border-color: transparent;">
+      <h2>Å se frem til 🩵</h2>
+      <div id="dashCarrot"><p class="note">Legg inn noe dere gleder dere til under Milepæler – en tur, en booking, en dato.</p></div>
+    </div>
+
+    <div class="card">
+      <h2>LSI over tid <span class="note">(skadet / frisk side, %)</span></h2>
+      <div id="lsiChart"><p class="note">Registrer en testdag, så tegnes kurven her. Terskellinjene viser typiske krav for rolig jogg (~80&nbsp;%) og retur til padel (~90&nbsp;%).</p></div>
+      <div class="legend" id="lsiLegend"></div>
+    </div>
+
+    <div class="card">
+      <h2>Smerte og trening siste 8 uker</h2>
+      <div id="painChart"><p class="note">Kommer når daglige registreringer finnes.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ DAGLIG ============ -->
+  <section id="view-daglig" class="hidden">
+    <div class="card">
+      <h2>Dagens registrering <span class="note">(under 30 sekunder)</span></h2>
+      <label>Dato</label>
+      <input type="date" id="dagDato">
+      <div style="margin-top:12px;">
+        <label>Smerte i sene/legg: <span class="rangeval" id="dagSmerteVal">0</span> / 10</label>
+        <input type="range" id="dagSmerte" min="0" max="10" value="0">
+      </div>
+      <div style="margin-top:10px;">
+        <label>Stivhet om morgenen: <span class="rangeval" id="dagStivVal">0</span> / 10</label>
+        <input type="range" id="dagStiv" min="0" max="10" value="0">
+      </div>
+      <div style="margin-top:12px;">
+        <label>Trent i dag?</label>
+        <div class="toggle-group">
+          <button type="button" id="dagTrentJa">Ja 💪</button>
+          <button type="button" id="dagTrentNei">Hviledag</button>
+        </div>
+      </div>
+      <div style="margin-top:12px;" id="dagBtBlock">
+        <label>Blodfortynnende tatt?</label>
+        <div class="toggle-group">
+          <button type="button" id="dagBtJa">Tatt 💉</button>
+          <button type="button" id="dagBtNei">Ikke ennå</button>
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <label>Notat (valgfritt)</label>
+        <textarea id="dagNotat" placeholder="F.eks. «litt øm etter spinning», «sov dårlig», «første tur uten krykker!»"></textarea>
+      </div>
+      <button style="margin-top:14px;width:100%;" id="dagLagre">Lagre dagen</button>
+    </div>
+    <div class="card">
+      <h3>Siste registreringer</h3>
+      <div id="dagListe"></div>
+    </div>
+  </section>
+
+  <!-- ============ STYRKE ============ -->
+  <section id="view-styrke" class="hidden">
+    <div class="card">
+      <h2>Logg styrkeøkt</h2>
+      <div class="grid2">
+        <div><label>Dato</label><input type="date" id="stDato"></div>
+        <div><label>Øvelse</label>
+          <select id="stOvelse">
+            <option>Tåheving sittende</option>
+            <option>Tåheving stående (to bein)</option>
+            <option>Tåheving stående (ett bein)</option>
+            <option>Eksentrisk tåheving</option>
+            <option>Knebøy</option>
+            <option>Markløft</option>
+            <option>Utfall</option>
+            <option>Hoftestrekk / hip thrust</option>
+            <option>Annet</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid2" style="margin-top:10px;">
+        <div><label>Sett × reps</label>
+          <div class="row" style="gap:6px;flex-wrap:nowrap;">
+            <input type="number" id="stSett" min="1" placeholder="3" inputmode="numeric">
+            <span>×</span>
+            <input type="number" id="stReps" min="1" placeholder="12" inputmode="numeric">
+          </div>
+        </div>
+        <div><label>Vekt (kg, 0 = kroppsvekt)</label><input type="number" id="stVekt" min="0" step="0.5" placeholder="0" inputmode="decimal"></div>
+      </div>
+      <button style="margin-top:14px;width:100%;" id="stLagre">Lagre øvelse</button>
+    </div>
+    <div class="card">
+      <h3>Progresjon: tåheving <span class="note">(tyngste sett per dag)</span></h3>
+      <div id="styrkeChart"><p class="note">Kommer når det finnes minst to økter med tåheving.</p></div>
+    </div>
+    <div class="card">
+      <h3>Siste økter</h3>
+      <div id="stListe"></div>
+    </div>
+  </section>
+
+  <!-- ============ TESTDAG ============ -->
+  <section id="view-test" class="hidden">
+    <div class="card">
+      <h2>Ny testdag <span class="note">(hver 2.–4. uke)</span></h2>
+      <p class="note" style="margin-top:0;">Fyll ut det som er relevant for fasen hun er i – tomme felter hoppes over. Skadet side er <strong id="skadetSideLabel">…</strong>.</p>
+      <label>Dato</label>
+      <input type="date" id="tDato">
+      <hr class="divider">
+      <h3>Ettbeins tåhevinger til utmattelse (antall)</h3>
+      <div class="grid2">
+        <div><label>Skadet side</label><input type="number" id="tRepsS" min="0" inputmode="numeric"></div>
+        <div><label>Frisk side</label><input type="number" id="tRepsF" min="0" inputmode="numeric"></div>
+      </div>
+      <hr class="divider">
+      <h3>Maks tåhevingshøyde (cm, mål mot vegg)</h3>
+      <div class="grid2">
+        <div><label>Skadet side</label><input type="number" id="tHoydeS" min="0" step="0.5" inputmode="decimal"></div>
+        <div><label>Frisk side</label><input type="number" id="tHoydeF" min="0" step="0.5" inputmode="decimal"></div>
+      </div>
+      <hr class="divider">
+      <h3>Leggomkrets (cm, fast punkt f.eks. 15 cm under kneet)</h3>
+      <div class="grid2">
+        <div><label>Skadet side</label><input type="number" id="tOmkS" min="0" step="0.1" inputmode="decimal"></div>
+        <div><label>Frisk side</label><input type="number" id="tOmkF" min="0" step="0.1" inputmode="decimal"></div>
+      </div>
+      <hr class="divider">
+      <h3>Ankelbevegelighet – knee-to-wall (cm)</h3>
+      <div class="grid2">
+        <div><label>Skadet side</label><input type="number" id="tRomS" min="0" step="0.5" inputmode="decimal"></div>
+        <div><label>Frisk side</label><input type="number" id="tRomF" min="0" step="0.5" inputmode="decimal"></div>
+      </div>
+      <hr class="divider">
+      <h3>Ettbeins hopp – lengde (cm) <span class="note">kun når klarert av fysio</span></h3>
+      <div class="grid2">
+        <div><label>Skadet side</label><input type="number" id="tHoppS" min="0" inputmode="numeric"></div>
+        <div><label>Frisk side</label><input type="number" id="tHoppF" min="0" inputmode="numeric"></div>
+      </div>
+      <hr class="divider">
+      <label>Notat fra fysio / egne kommentarer</label>
+      <textarea id="tNotat"></textarea>
+      <button style="margin-top:14px;width:100%;" id="tLagre">Lagre testdag</button>
+    </div>
+    <div class="card">
+      <h3>Tidligere testdager</h3>
+      <div id="tListe"></div>
+    </div>
+  </section>
+
+  <!-- ============ MILEPÆLER ============ -->
+  <section id="view-milepaler" class="hidden">
+    <div class="card">
+      <h2>Veien tilbake</h2>
+      <p class="note" style="margin-top:0;">Kriteriebasert, ikke datobasert – trykk på sirkelen når en milepæl er nådd (avklar alltid med fysio/ortoped). Rekkefølgen kan variere litt med behandlingsvalg.</p>
+      <div id="msListe"></div>
+    </div>
+    <div class="card">
+      <h2>Å se frem til 🩵</h2>
+      <p class="note" style="margin-top:0;">Gulrøttene i planen – turer og opplevelser dere har booket eller sikter mot. Nedtelling vises på forsiden.</p>
+      <div class="grid2">
+        <div><label>Hva</label><input type="text" id="crTittel" placeholder="F.eks. sykkeltur Mallorca"></div>
+        <div><label>Dato (ca.)</label><input type="date" id="crDato"></div>
+      </div>
+      <button class="secondary" style="margin-top:12px;width:100%;" id="crLagre">Legg til</button>
+      <div id="crListe" style="margin-top:10px;"></div>
+    </div>
+    <div class="card">
+      <h3>Milepælslogg 🏆</h3>
+      <div id="msLogg"><p class="note">Historien om comebacket skrives her.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ MER ============ -->
+  <section id="view-mer" class="hidden">
+    <div class="card">
+      <h2>Innstillinger</h2>
+      <div class="grid2">
+        <div><label>Skadedato</label><input type="date" id="setSkadedato"></div>
+        <div><label>Operasjonsdato <span class="note">(tom hvis konservativ)</span></label><input type="date" id="setOpdato"></div>
+        <div><label>Skadet side</label>
+          <select id="setSide"><option value="venstre">Venstre</option><option value="høyre">Høyre</option></select>
+        </div>
+      </div>
+      <div style="margin-top:10px;"><label>Navn (valgfritt, vises i rapport)</label><input type="text" id="setNavn"></div>
+      <div style="margin-top:10px;"><label>Motivasjonstekst på forsiden</label><textarea id="setQuote" placeholder="En quote, et motto, noe dere har sagt til hverandre …"></textarea></div>
+      <div style="margin-top:10px;">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+          <input type="checkbox" id="setBt" style="width:auto;"> Vis «blodfortynnende tatt?» i dagligloggen <span class="note">(skru av når kuren er ferdig)</span>
+        </label>
+      </div>
+      <button class="secondary" style="margin-top:12px;" id="setLagre">Lagre innstillinger</button>
+    </div>
+    <div class="card">
+      <h2>Rapport og backup</h2>
+      <p class="note">Rapporten er fin å ta med til fysioterapeut eller ortoped. Backup-filen kan importeres igjen her eller brukes hvis appen videreutvikles.</p>
+      <div class="row" style="margin-top:8px;">
+        <button class="secondary" id="btnPrint">Skriv ut / PDF-rapport</button>
+        <button class="secondary" id="btnExport">Last ned backup (JSON)</button>
+        <button class="ghost" id="btnImport">Importer backup</button>
+        <button class="ghost" id="btnWipe" style="color:var(--bad);border-color:var(--bad);">Slett alle registreringer</button>
+        <input type="file" id="importFile" accept="application/json" class="hidden">
+      </div>
+      <div id="exportFallback" class="hidden" style="margin-top:10px;">
+        <label>Kopier og lagre denne teksten som backup:</label>
+        <textarea id="exportText" style="min-height:120px;font-size:0.7rem;"></textarea>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Når bør dere kontakte lege?</h2>
+      <p class="note" style="margin-top:0;">Rolig liste, ikke skremsel – de aller fleste opplever ingen av disse. Men ring fastlege/legevakt samme dag ved: økende smerte eller hevelse i leggen som ikke gir seg med heving og ro · feber, eller varme/rødhet/væske/lukt fra bandasjen · nummenhet som brer seg. Ring 113 ved plutselig tungpust, brystsmerter eller hoste med blod – det kan være tegn på blodpropp som har løsnet, og skal alltid sjekkes akutt. Ved tvil: ring, ikke vent. Ingen blir irritert over en unødvendig telefon.</p>
+    </div>
+    <div class="card">
+      <h2>Om tallene</h2>
+      <p class="note"><strong>LSI (Limb Symmetry Index)</strong> = skadet side ÷ frisk side × 100. Typiske veiledende terskler: rolig jogg fra ~70–80&nbsp;% på tåhevingsstyrke, retur til racketsport fra ~90&nbsp;% på styrke og hopp. Dette er veiledende – beslutninger tas alltid sammen med fysioterapeut og ortoped. Appen gir ikke medisinske råd.</p>
+    </div>
+  </section>
+</main>
+
+<nav>
+  <button data-view="oversikt" class="active"><span class="ico">📈</span>Oversikt</button>
+  <button data-view="daglig"><span class="ico">☀️</span>Daglig</button>
+  <button data-view="styrke"><span class="ico">🏋️</span>Styrke</button>
+  <button data-view="test"><span class="ico">📏</span>Testdag</button>
+  <button data-view="milepaler"><span class="ico">🏆</span>Milepæler</button>
+  <button data-view="mer"><span class="ico">⚙️</span>Mer</button>
+</nav>
+
+<script>
+(function(){
+  "use strict";
+  var KEY = "akilles-rehab-v1";
+  var MILESTONES = [
+    { id:"gips",    t:"Ut av gips → walker",                  c:"Etter planen: 2–2,5 uker gips etter operasjonen, så over i walker." },
+    { id:"vekt",    t:"Full vektbæring i walker",            c:"Kan gå med full belastning i walkeren uten økende smerte." },
+    { id:"tosko",   t:"Ut av walker – to sko",               c:"Etter planen: 6 uker i walker, altså ute rundt uke 8–8,5. Ofte med hælinnlegg en periode etterpå." },
+    { id:"gange",   t:"Gange uten halting",                  c:"Normalt gangmønster uten kompensasjon." },
+    { id:"sittende",t:"Sittende tåheving med vekt",          c:"Smertefritt med ekstern belastning." },
+    { id:"ettbein", t:"Første ettbeins tåheving, skadet side",c:"Én kontrollert repetisjon i full høyde." },
+    { id:"jogg",    t:"Rolig jogg",                          c:"Veiledende: LSI ≥ 70–80 % på tåhevingsstyrke + smertefri gange. Klareres av fysio." },
+    { id:"plyo",    t:"Hopp og plyometri",                   c:"Veiledende: LSI ≥ 90 % på styrke. Gradvis innfasing." },
+    { id:"retning", t:"Retningsendringer og sprint",         c:"Veiledende: LSI ≥ 90 % også på hopptester." },
+    { id:"padel",   t:"Tilbake på padelbanen 🎾",            c:"Full klarering fra fysio/ortoped. Typisk 9–12 mnd etter skaden." }
+  ];
+
+  var state = load();
+  if (!state.carrots) state.carrots = [];
+  if (state.settings.quote === undefined || (!state.settings._quoteFix && state.settings.quote === "Comebacket blir sterkere enn tilbakeslaget.")) { state.settings.quote = "Jakob Ingebrigtsen røk akillesen, opererte – og ble verdensmester i etterkant."; state.settings._quoteFix = 1; try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {} }
+  if (!state.settings._opFix) { if (!state.settings.opDate) state.settings.opDate = "2026-09-25"; state.settings._opFix = 1; try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {} }
+  function seedDemo(){
+    function dstr(offset){ var d = new Date(); d.setDate(d.getDate()+offset); return d.toISOString().slice(0,10); }
+    for (var i = 70; i >= 0; i--){
+      if (i % 9 === 4) continue;
+      var w = (70 - i) / 7;
+      var pain = Math.max(0, Math.round(6.5 - w*0.55 + ((i*3)%3 - 1)*0.6));
+      var stiff = Math.max(0, Math.round(7 - w*0.5 + ((i*5)%3 - 1)*0.6));
+      var e = { date: dstr(-i), pain: pain, stiff: stiff, trained: (i % 7 !== 0 && i % 5 !== 2) };
+      if (i > 28) e.bt = true;
+      if (i === 63) e.note = "Sting fjernet, alt ser fint ut";
+      if (i === 42) e.note = "Første dag i to sko 🎉";
+      if (i === 14) e.note = "Gikk 5 km tur uten å kjenne noe";
+      state.daily.push(e);
+    }
+    for (var d = 56; d >= 0; d -= 3){
+      var wk = (56 - d) / 7;
+      if (d % 6 < 3) {
+        state.strength.push({ date: dstr(-d), exercise: "Tåheving sittende", sets: 3, reps: 12, weight: Math.min(45, Math.round(wk*6)) });
+        if (wk > 4) state.strength.push({ date: dstr(-d), exercise: "Tåheving stående (to bein)", sets: 3, reps: 10, weight: Math.round((wk-4)*5) });
+      } else {
+        state.strength.push({ date: dstr(-d), exercise: "Knebøy", sets: 3, reps: 8, weight: 40 + Math.round(wk*2.5) });
+      }
+    }
+    var T = [
+      { o: -63, omk: [34.6, 37.4], rom: [4, 11] },
+      { o: -49, omk: [34.9, 37.4], rom: [6, 11], reps: [0, 24], hoyde: [3, 11] },
+      { o: -35, omk: [35.4, 37.3], rom: [8, 11], reps: [6, 25], hoyde: [5.5, 11] },
+      { o: -21, omk: [35.9, 37.3], rom: [9.5, 11.5], reps: [12, 26], hoyde: [7.5, 11] },
+      { o: -7,  omk: [36.3, 37.4], rom: [10.5, 11.5], reps: [17, 25], hoyde: [8.8, 11.2], hopp: [92, 141] }
+    ];
+    T.forEach(function(t){
+      state.tests.push({
+        date: dstr(t.o),
+        reps:  { s: t.reps ? t.reps[0] : null,  f: t.reps ? t.reps[1] : null },
+        hoyde: { s: t.hoyde ? t.hoyde[0] : null, f: t.hoyde ? t.hoyde[1] : null },
+        omk:   { s: t.omk[0], f: t.omk[1] },
+        rom:   { s: t.rom[0], f: t.rom[1] },
+        hopp:  { s: t.hopp ? t.hopp[0] : null, f: t.hopp ? t.hopp[1] : null },
+        note: ""
+      });
+    });
+    ["gips","vekt","tosko","gange","sittende","ettbein"].forEach(function(id, idx){
+      state.milestones[id] = dstr(-60 + idx*9);
+    });
+    state.carrots = [
+      { title: "Sykkeltur Mallorca 🚴", date: "2027-03-20" },
+      { title: "Alpetur (bekreftes med fysio)", date: "2027-04-09" }
+    ];
+  }
+  if (!state.settings._demoSeeded && !state.daily.length && !state.tests.length && !state.strength.length) {
+    seedDemo();
+    state.settings._demoSeeded = 1;
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+  }
+  if (!state.settings._sideFix) { state.settings.side = "venstre"; state.settings._sideFix = 1; try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {} }
+  function load(){
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) return JSON.parse(raw);
+    } catch(e) {}
+    return {
+      settings: { injuryDate: "2026-09-23", opDate: "2026-09-25", side: "venstre", name: "", quote: "Jakob Ingebrigtsen røk akillesen, opererte – og ble verdensmester i etterkant." },
+      daily: [], strength: [], tests: [], milestones: {}, carrots: []
+    };
+  }
+  function save(){
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) { alert("Kunne ikke lagre – sjekk at nettleseren tillater lagring."); }
+    render();
+  }
+  function $(id){ return document.getElementById(id); }
+  function today(){ return new Date().toISOString().slice(0,10); }
+  function fmt(d){
+    if(!d) return "";
+    var p = d.split("-");
+    return p[2] + "." + p[1] + "." + p[0].slice(2);
+  }
+  function daysBetween(a,b){ return Math.round((new Date(b) - new Date(a)) / 86400000); }
+  function lsi(s,f){
+    s = parseFloat(s); f = parseFloat(f);
+    if (isNaN(s) || isNaN(f) || f <= 0) return null;
+    return Math.round(s / f * 100);
+  }
+
+  /* ---------- Navigation ---------- */
+  var views = ["oversikt","daglig","styrke","test","milepaler","mer"];
+  document.querySelectorAll("nav button").forEach(function(b){
+    b.addEventListener("click", function(){
+      views.forEach(function(v){ $("view-"+v).classList.add("hidden"); });
+      $("view-"+b.dataset.view).classList.remove("hidden");
+      document.querySelectorAll("nav button").forEach(function(x){ x.classList.remove("active"); });
+      b.classList.add("active");
+      window.scrollTo(0,0);
+    });
+  });
+
+  /* ---------- Daily ---------- */
+  var trent = null, btTatt = null;
+  $("dagDato").value = today();
+  $("dagBtJa").addEventListener("click", function(){ btTatt = true; setBtUI(); });
+  $("dagBtNei").addEventListener("click", function(){ btTatt = false; setBtUI(); });
+  function setBtUI(){
+    $("dagBtJa").classList.toggle("on", btTatt === true);
+    $("dagBtNei").classList.toggle("on", btTatt === false);
+  }
+  $("dagSmerte").addEventListener("input", function(){ $("dagSmerteVal").textContent = this.value; });
+  $("dagStiv").addEventListener("input", function(){ $("dagStivVal").textContent = this.value; });
+  $("dagTrentJa").addEventListener("click", function(){ trent = true; setTrentUI(); });
+  $("dagTrentNei").addEventListener("click", function(){ trent = false; setTrentUI(); });
+  function setTrentUI(){
+    $("dagTrentJa").classList.toggle("on", trent === true);
+    $("dagTrentNei").classList.toggle("on", trent === false);
+  }
+  $("dagDato").addEventListener("change", function(){
+    var e = state.daily.find(function(x){ return x.date === $("dagDato").value; });
+    $("dagSmerte").value = e ? e.pain : 0; $("dagSmerteVal").textContent = e ? e.pain : 0;
+    $("dagStiv").value = e ? e.stiff : 0; $("dagStivVal").textContent = e ? e.stiff : 0;
+    trent = e ? e.trained : null; setTrentUI();
+    btTatt = (e && typeof e.bt === "boolean") ? e.bt : null; setBtUI();
+    $("dagNotat").value = e ? (e.note || "") : "";
+  });
+  $("dagLagre").addEventListener("click", function(){
+    var d = $("dagDato").value;
+    if (!d) return alert("Velg dato.");
+    state.daily = state.daily.filter(function(x){ return x.date !== d; });
+    var entry = { date: d, pain: +$("dagSmerte").value, stiff: +$("dagStiv").value, trained: trent === true, note: $("dagNotat").value.trim() };
+    if (state.settings.btReminder !== false && btTatt !== null) entry.bt = btTatt;
+    state.daily.push(entry);
+    state.daily.sort(function(a,b){ return a.date < b.date ? -1 : 1; });
+    save();
+    $("dagNotat").value = "";
+  });
+
+  /* ---------- Strength ---------- */
+  $("stDato").value = today();
+  $("stLagre").addEventListener("click", function(){
+    var d = $("stDato").value;
+    if (!d) return alert("Velg dato.");
+    state.strength.push({
+      date: d, exercise: $("stOvelse").value,
+      sets: +$("stSett").value || 0, reps: +$("stReps").value || 0, weight: +$("stVekt").value || 0
+    });
+    state.strength.sort(function(a,b){ return a.date < b.date ? -1 : 1; });
+    save();
+  });
+
+  /* ---------- Tests ---------- */
+  $("tDato").value = today();
+  $("tLagre").addEventListener("click", function(){
+    var d = $("tDato").value;
+    if (!d) return alert("Velg dato.");
+    function v(id){ var x = $(id).value; return x === "" ? null : parseFloat(x); }
+    var t = {
+      date: d,
+      reps:  { s: v("tRepsS"),  f: v("tRepsF") },
+      hoyde: { s: v("tHoydeS"), f: v("tHoydeF") },
+      omk:   { s: v("tOmkS"),   f: v("tOmkF") },
+      rom:   { s: v("tRomS"),   f: v("tRomF") },
+      hopp:  { s: v("tHoppS"),  f: v("tHoppF") },
+      note: $("tNotat").value.trim()
+    };
+    state.tests = state.tests.filter(function(x){ return x.date !== d; });
+    state.tests.push(t);
+    state.tests.sort(function(a,b){ return a.date < b.date ? -1 : 1; });
+    save();
+    ["tRepsS","tRepsF","tHoydeS","tHoydeF","tOmkS","tOmkF","tRomS","tRomF","tHoppS","tHoppF","tNotat"].forEach(function(id){ $(id).value = ""; });
+    alert("Testdag lagret! Se LSI-kurven på Oversikt.");
+  });
+
+  /* ---------- Carrots (things to look forward to) ---------- */
+  $("crLagre").addEventListener("click", function(){
+    var t = $("crTittel").value.trim();
+    if (!t) return alert("Skriv inn hva dere gleder dere til.");
+    state.carrots.push({ title: t, date: $("crDato").value || null });
+    state.carrots.sort(function(a,b){
+      if (!a.date) return 1; if (!b.date) return -1;
+      return a.date < b.date ? -1 : 1;
+    });
+    $("crTittel").value = ""; $("crDato").value = "";
+    save();
+  });
+  function renderCarrots(){
+    var host = $("crListe");
+    host.innerHTML = state.carrots.map(function(c, i){
+      var extra = "";
+      if (c.date) {
+        var d = daysBetween(today(), c.date);
+        extra = d > 0 ? " · om " + d + " dager" : (d === 0 ? " · i dag! 🎉" : " · gjennomført");
+      }
+      return '<div class="list-item"><span>' + esc(c.title) +
+        '<span class="note">' + (c.date ? " " + fmt(c.date) + extra : "") + '</span></span>' +
+        '<span class="d"><button class="small ghost" data-del-cr="' + i + '">✕</button></span></div>';
+    }).join("") || '<p class="note">Ingen lagt inn ennå.</p>';
+    document.querySelectorAll("[data-del-cr]").forEach(function(b){
+      b.addEventListener("click", function(){
+        if (confirm("Fjerne denne?")) { state.carrots.splice(+b.dataset.delCr, 1); save(); }
+      });
+    });
+    // Dashboard: next upcoming
+    var up = state.carrots.filter(function(c){ return c.date && daysBetween(today(), c.date) >= 0; });
+    var noDate = state.carrots.filter(function(c){ return !c.date; });
+    var dc = $("dashCarrot");
+    if (up.length) {
+      var n = up[0], d = daysBetween(today(), n.date);
+      dc.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;">' +
+        '<div><div style="font-weight:700;">' + esc(n.title) + '</div><div class="note">' + fmt(n.date) + '</div></div>' +
+        '<div style="text-align:right;"><span class="lsi-big" style="color:var(--accent-ink);">' + d + '</span><div class="note">dager igjen</div></div></div>' +
+        (up.length > 1 ? '<div class="note" style="margin-top:8px;">Deretter: ' + up.slice(1,3).map(function(c){ return esc(c.title) + " (" + fmt(c.date) + ")"; }).join(" · ") + '</div>' : "");
+    } else if (noDate.length) {
+      dc.innerHTML = '<div style="font-weight:700;">' + esc(noDate[0].title) + '</div><div class="note">Dato ikke satt ennå – sett en når bookingen er gjort.</div>';
+    } else {
+      dc.innerHTML = '<p class="note">Legg inn noe dere gleder dere til under Milepæler – en tur, en booking, en dato.</p>';
+    }
+  }
+
+  /* ---------- Milestones ---------- */
+  function renderMilestones(){
+    var host = $("msListe");
+    host.innerHTML = "";
+    var nextFound = false;
+    MILESTONES.forEach(function(m){
+      var done = state.milestones[m.id];
+      var div = document.createElement("div");
+      div.className = "ms" + (done ? " done" : (!nextFound ? " next" : ""));
+      var isNext = !done && !nextFound;
+      if (isNext) nextFound = true;
+      var isLast = m.id === MILESTONES[MILESTONES.length-1].id;
+      div.innerHTML = '<div class="rail"><div class="dot">' + (done ? "✓" : "") + '</div>' +
+        (isLast ? '' : '<div class="line"></div>') + '</div>' +
+        '<div class="body"><div class="t">' + m.t + '</div><div class="c">' + m.c + '</div>' +
+        (done ? '<div class="when">Nådd ' + fmt(done) + '</div>' : '') + '</div>';
+      div.querySelector(".dot").addEventListener("click", function(){
+        if (state.milestones[m.id]) {
+          if (confirm("Fjerne markeringen for «" + m.t + "»?")) { delete state.milestones[m.id]; save(); }
+        } else {
+          state.milestones[m.id] = today();
+          save();
+        }
+      });
+      host.appendChild(div);
+    });
+    // Log
+    var log = Object.keys(state.milestones).map(function(id){
+      var m = MILESTONES.find(function(x){ return x.id === id; });
+      return { date: state.milestones[id], t: m ? m.t : id };
+    }).sort(function(a,b){ return a.date < b.date ? -1 : 1; });
+    var lh = $("msLogg");
+    if (!log.length) { lh.innerHTML = '<p class="note">Historien om comebacket skrives her.</p>'; }
+    else {
+      lh.innerHTML = log.map(function(x){
+        return '<div class="list-item"><span>' + x.t + '</span><span class="d">' + fmt(x.date) + '</span></div>';
+      }).join("");
+    }
+    // Next milestone on dashboard
+    var next = MILESTONES.find(function(m){ return !state.milestones[m.id]; });
+    $("nextMilestone").innerHTML = next
+      ? '<div class="t" style="font-weight:700;">' + next.t + '</div><div class="note" style="margin-top:4px;">' + next.c + '</div>'
+      : '<div class="t" style="font-weight:700;">Alle milepæler nådd – tilbake på banen! 🎾🎉</div>';
+    $("heroNext").innerHTML = next
+      ? 'Neste: <strong>' + next.t + '</strong>'
+      : '<strong>Tilbake på banen! 🎾</strong>';
+    renderRing();
+  }
+
+  function renderRing(){
+    var total = MILESTONES.length;
+    var done = MILESTONES.filter(function(m){ return state.milestones[m.id]; }).length;
+    var size = 196, cx = size/2, cy = size/2, r = 84, sw = 10;
+    var C = 2 * Math.PI * r;
+    var frac = done / total;
+    var svg = '<svg viewBox="0 0 ' + size + ' ' + size + '" width="' + size + '" height="' + size + '" style="display:block;">';
+    svg += '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="none" stroke="var(--border)" stroke-width="' + sw + '"/>';
+    if (frac > 0) {
+      svg += '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="none" stroke="var(--accent)" stroke-width="' + sw + '" stroke-linecap="round" stroke-dasharray="' + (C*frac) + ' ' + C + '" transform="rotate(-90 ' + cx + ' ' + cy + ')"/>';
+    }
+    // milestone points on the path
+    for (var i = 0; i < total; i++){
+      var a = -Math.PI/2 + (i+1)/total * 2 * Math.PI;
+      var x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+      var isDone = i < done;
+      svg += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (isDone ? 5 : 3.5) + '" fill="' + (isDone ? 'var(--accent-ink)' : 'var(--card)') + '" stroke="' + (isDone ? 'var(--accent-ink)' : 'var(--muted)') + '" stroke-width="1.5"/>';
+    }
+    svg += '</svg>';
+    $("progressRing").innerHTML = svg;
+  }
+
+  /* ---------- Charts (hand-rolled SVG) ---------- */
+  function lineChart(series, opts){
+    // series: [{name, color, points:[{x(date str), y}]}]
+    opts = opts || {};
+    var W = 560, H = 240, padL = 34, padR = 8, padT = 10, padB = 26;
+    var allDates = [];
+    series.forEach(function(s){ s.points.forEach(function(p){ allDates.push(p.x); }); });
+    if (!allDates.length) return null;
+    allDates.sort();
+    var t0 = new Date(allDates[0]).getTime(), t1 = new Date(allDates[allDates.length-1]).getTime();
+    if (t0 === t1) t1 = t0 + 86400000;
+    var yMin = opts.yMin != null ? opts.yMin : 0;
+    var yMax = opts.yMax != null ? opts.yMax : Math.max.apply(null, series.reduce(function(a,s){ return a.concat(s.points.map(function(p){ return p.y; })); }, [10])) * 1.1;
+    function X(d){ return padL + (new Date(d).getTime() - t0) / (t1 - t0) * (W - padL - padR); }
+    function Y(v){ return H - padB - (v - yMin) / (yMax - yMin) * (H - padT - padB); }
+    var svg = '<svg class="chart" viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg" role="img">';
+    // grid + y labels
+    var steps = 4;
+    for (var i = 0; i <= steps; i++){
+      var v = yMin + (yMax - yMin) * i / steps;
+      var y = Y(v);
+      svg += '<line x1="' + padL + '" y1="' + y + '" x2="' + (W - padR) + '" y2="' + y + '" stroke="var(--chart-grid)" stroke-width="1"/>';
+      svg += '<text x="' + (padL - 6) + '" y="' + (y + 4) + '" text-anchor="end" font-size="10" fill="var(--muted)">' + Math.round(v) + '</text>';
+    }
+    // thresholds
+    (opts.thresholds || []).forEach(function(th){
+      if (th.v <= yMax && th.v >= yMin) {
+        var y = Y(th.v);
+        svg += '<line x1="' + padL + '" y1="' + y + '" x2="' + (W - padR) + '" y2="' + y + '" stroke="' + th.color + '" stroke-width="1.5" stroke-dasharray="6 4"/>';
+        svg += '<text x="' + (W - padR) + '" y="' + (y - 5) + '" text-anchor="end" font-size="10" font-weight="700" fill="' + th.color + '">' + th.label + '</text>';
+      }
+    });
+    // x labels: first + last
+    svg += '<text x="' + padL + '" y="' + (H - 8) + '" font-size="10" fill="var(--muted)">' + fmt(allDates[0]) + '</text>';
+    svg += '<text x="' + (W - padR) + '" y="' + (H - 8) + '" text-anchor="end" font-size="10" fill="var(--muted)">' + fmt(allDates[allDates.length-1]) + '</text>';
+    // lines
+    series.forEach(function(s){
+      var pts = s.points.filter(function(p){ return p.y != null; });
+      if (!pts.length) return;
+      var path = pts.map(function(p,i){ return (i ? "L" : "M") + X(p.x).toFixed(1) + " " + Y(p.y).toFixed(1); }).join(" ");
+      svg += '<path d="' + path + '" fill="none" stroke="' + s.color + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>';
+      pts.forEach(function(p){
+        svg += '<circle cx="' + X(p.x).toFixed(1) + '" cy="' + Y(p.y).toFixed(1) + '" r="3.5" fill="' + s.color + '"/>';
+      });
+    });
+    svg += "</svg>";
+    return svg;
+  }
+
+  function renderCharts(){
+    // LSI chart
+    var colors = { reps: "var(--accent-ink)", hoyde: "#8b5cf6", omk: "#0ea5e9", hopp: "#ef4444" };
+    var names = { reps: "Tåhevinger (antall)", hoyde: "Tåhevingshøyde", omk: "Leggomkrets", hopp: "Hopp" };
+    var series = [];
+    ["reps","hoyde","omk","hopp"].forEach(function(k){
+      var pts = state.tests.map(function(t){ return { x: t.date, y: lsi(t[k] && t[k].s, t[k] && t[k].f) }; }).filter(function(p){ return p.y != null; });
+      if (pts.length) series.push({ name: names[k], color: colors[k], points: pts });
+    });
+    if (series.length){
+      $("lsiChart").innerHTML = lineChart(series, { yMin: 0, yMax: 110, thresholds: [
+        { v: 80, label: "Jogg ~80 %", color: "var(--thr-jogg)" },
+        { v: 90, label: "Padel ~90 %", color: "var(--thr-padel)" }
+      ]});
+      $("lsiLegend").innerHTML = series.map(function(s){ return '<span style="color:' + s.color + '">' + s.name + '</span>'; }).join("");
+    }
+    // Pain chart (last 56 days)
+    var cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 56);
+    var dPts = state.daily.filter(function(x){ return new Date(x.date) >= cutoff; });
+    if (dPts.length >= 2){
+      $("painChart").innerHTML = lineChart([
+        { name: "Smerte", color: "var(--bad)", points: dPts.map(function(x){ return { x: x.date, y: x.pain }; }) },
+        { name: "Stivhet", color: "var(--warn)", points: dPts.map(function(x){ return { x: x.date, y: x.stiff }; }) }
+      ], { yMin: 0, yMax: 10 }) +
+      '<div class="legend"><span style="color:var(--bad)">Smerte</span><span style="color:var(--warn)">Stivhet</span></div>';
+    }
+    // Strength chart: heaviest tåheving set per date
+    var byDate = {};
+    state.strength.forEach(function(s){
+      if (s.exercise.indexOf("Tåheving") !== 0 && s.exercise.indexOf("Eksentrisk") !== 0) return;
+      if (byDate[s.date] == null || s.weight > byDate[s.date]) byDate[s.date] = s.weight;
+    });
+    var stPts = Object.keys(byDate).sort().map(function(d){ return { x: d, y: byDate[d] }; });
+    if (stPts.length >= 2){
+      $("styrkeChart").innerHTML = lineChart([{ name: "Tåheving", color: "var(--accent-ink)", points: stPts }], {}) +
+        '<p class="note">Kg ekstern belastning på tyngste tåhevingssett.</p>';
+    }
+  }
+
+  /* ---------- Lists & stats ---------- */
+  function renderLists(){
+    $("dagListe").innerHTML = state.daily.slice(-10).reverse().map(function(x){
+      return '<div class="list-item"><span>' +
+        (x.trained ? "💪 " : "😴 ") + (x.bt === true ? "💉 " : (x.bt === false ? "❗ " : "")) + "Smerte " + x.pain + " · Stivhet " + x.stiff +
+        (x.note ? ' <span class="note">– ' + esc(x.note) + '</span>' : "") +
+        '</span><span class="d">' + fmt(x.date) + '</span></div>';
+    }).join("") || '<p class="note">Ingen registreringer ennå.</p>';
+
+    $("stListe").innerHTML = state.strength.slice(-12).reverse().map(function(x, idx){
+      var realIdx = state.strength.length - 1 - idx;
+      return '<div class="list-item"><span>' + esc(x.exercise) + " " + x.sets + "×" + x.reps +
+        (x.weight ? " @ " + x.weight + " kg" : " (kroppsvekt)") +
+        '</span><span class="d">' + fmt(x.date) +
+        ' <button class="small ghost" data-del-st="' + realIdx + '">✕</button></span></div>';
+    }).join("") || '<p class="note">Ingen økter ennå.</p>';
+    document.querySelectorAll("[data-del-st]").forEach(function(b){
+      b.addEventListener("click", function(){
+        if (confirm("Slette denne øvelsen?")) { state.strength.splice(+b.dataset.delSt, 1); save(); }
+      });
+    });
+
+    $("tListe").innerHTML = state.tests.slice().reverse().map(function(t){
+      var l = lsi(t.reps.s, t.reps.f);
+      return '<div class="list-item"><span>LSI tåhevinger: <strong>' + (l != null ? l + " %" : "–") + '</strong>' +
+        (t.note ? ' <span class="note">– ' + esc(t.note) + '</span>' : "") +
+        '</span><span class="d">' + fmt(t.date) + '</span></div>';
+    }).join("") || '<p class="note">Ingen testdager ennå.</p>';
+  }
+
+  function esc(s){ var d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+
+  function renderStats(){
+    var inj = state.settings.injuryDate;
+    $("statDays").textContent = inj ? daysBetween(inj, today()) : "–";
+    var op = state.settings.opDate;
+    if (op) {
+      var od = daysBetween(op, today());
+      if (od < 0) {
+        $("statOp").textContent = fmt(op);
+        $("statOpLabel").textContent = "operasjon planlagt";
+      } else {
+        var w = Math.floor(od / 7), r = od % 7;
+        $("statOp").textContent = od < 14 ? od + " d" : "uke " + w + (r ? " + " + r + " d" : "");
+        $("statOpLabel").textContent = od < 14 ? "dager siden operasjon" : "siden operasjon";
+      }
+    } else {
+      $("statOp").textContent = "–";
+      $("statOpLabel").textContent = "operasjon (ikke satt)";
+    }
+    $("headerSub").textContent = (state.settings.name ? state.settings.name + " · " : "") +
+      "Skadet " + fmt(inj) + (op ? " · Operert " + fmt(op) : "") + " · " + state.settings.side + " side · Én tåheving om gangen 🩵";
+    // Latest LSI on reps (fallback hoyde)
+    var lv = null;
+    for (var i = state.tests.length - 1; i >= 0; i--){
+      lv = lsi(state.tests[i].reps.s, state.tests[i].reps.f);
+      if (lv == null) lv = lsi(state.tests[i].hoyde.s, state.tests[i].hoyde.f);
+      if (lv != null) break;
+    }
+    $("statLsi").textContent = lv != null ? lv + " %" : "–";
+    $("statLsi").style.color = lv == null ? "" : (lv >= 90 ? "var(--good)" : (lv >= 80 ? "var(--warn)" : ""));
+    // Streak
+    var streak = 0, d = new Date();
+    var set = {};
+    state.daily.forEach(function(x){ set[x.date] = 1; });
+    while (set[d.toISOString().slice(0,10)]) { streak++; d.setDate(d.getDate() - 1); }
+    $("statStreak").textContent = streak;
+    var q = state.settings.quote;
+    $("heroQuote").textContent = q ? "«" + q + "»" : "";
+    $("heroQuote").style.display = q ? "" : "none";
+  }
+
+  /* ---------- Settings, export, import, print ---------- */
+  $("setSkadedato").value = state.settings.injuryDate;
+  $("setOpdato").value = state.settings.opDate || "";
+  $("setSide").value = state.settings.side;
+  $("setNavn").value = state.settings.name || "";
+  $("setBt").checked = state.settings.btReminder !== false;
+  $("setQuote").value = state.settings.quote || "";
+  $("setLagre").addEventListener("click", function(){
+    state.settings.injuryDate = $("setSkadedato").value || state.settings.injuryDate;
+    state.settings.opDate = $("setOpdato").value || "";
+    state.settings.side = $("setSide").value;
+    state.settings.name = $("setNavn").value.trim();
+    state.settings.btReminder = $("setBt").checked;
+    state.settings.quote = $("setQuote").value.trim();
+    save();
+    alert("Lagret!");
+  });
+  $("btnPrint").addEventListener("click", function(){ window.print(); });
+
+  $("btnExport").addEventListener("click", function(){
+    var data = JSON.stringify(state, null, 2);
+    try {
+      var blob = new Blob([data], { type: "application/json" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "comeback-kid-backup.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+    } catch(e) { showFallback(data); }
+  });
+  function showFallback(data){
+    $("exportFallback").classList.remove("hidden");
+    $("exportText").value = data;
+    $("exportText").focus();
+    $("exportText").select();
+  }
+  $("btnWipe").addEventListener("click", function(){
+    if (confirm("Slette ALLE registreringer (daglig, styrke, tester, milepæler og «å se frem til»)? Innstillingene beholdes. Dette kan ikke angres – ta gjerne en backup først.")) {
+      state.daily = []; state.strength = []; state.tests = []; state.milestones = {}; state.carrots = [];
+      save();
+      alert("Alt er nullstilt – klar for ekte data. Lykke til! 🩵");
+    }
+  });
+  $("btnImport").addEventListener("click", function(){ $("importFile").click(); });
+  $("importFile").addEventListener("change", function(){
+    var f = this.files[0];
+    if (!f) return;
+    var r = new FileReader();
+    r.onload = function(){
+      try {
+        var imported = JSON.parse(r.result);
+        if (!imported.settings) throw new Error("ugyldig fil");
+        if (confirm("Erstatte dagens data med innholdet i backup-filen?")) { state = imported; save(); alert("Importert!"); }
+      } catch(e) { alert("Kunne ikke lese filen som gyldig backup."); }
+    };
+    r.readAsText(f);
+  });
+
+  function render(){
+    $("skadetSideLabel").textContent = state.settings.side;
+    $("dagBtBlock").classList.toggle("hidden", state.settings.btReminder === false);
+    renderStats();
+    renderMilestones();
+    renderCarrots();
+    renderCharts();
+    renderLists();
+  }
+  render();
+})();
+</script>
+</body>
+</html>
